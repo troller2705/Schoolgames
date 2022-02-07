@@ -55,7 +55,7 @@ class MainMenu(Menu):
             self.game.check_events()
             self.check_input()
             self.game.display.fill(self.game.BLACK)
-            self.game.draw_text("Testers Paradise", 30, self.mid_w, self.mid_h - 250)
+            self.game.draw_text("Trollers Paradise", 30, self.mid_w, self.mid_h - 250)
             self.game.draw_text("Start Game", 20, self.startx, self.starty)
             self.game.draw_text("Options", 20, self.optionsx, self.optionsy)
             self.game.draw_text("Credits", 20, self.creditsx, self.creditsy)
@@ -308,7 +308,10 @@ class CreditsMenu(Menu):
                 self.run_display = False
             self.game.display.fill(self.game.BLACK)
             self.game.draw_text('Credits', 40, self.mid_w, self.mid_h - 200)
-            self.game.draw_text('Made by Troller27O5', 25, self.mid_w, self.mid_h + 10)
+            self.game.draw_text('Made by Deathboard Productions', 25, self.mid_w, self.mid_h - 100)
+            self.game.draw_text('Lead Developer Graphics Designer Sound Engineer:', 15, self.mid_w, self.mid_h + 25)
+            self.game.draw_text('Troller AKA Cole', 25, self.mid_w, self.mid_h + 50)
+
             self.blit_screen()
 
 
