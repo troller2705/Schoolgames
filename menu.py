@@ -330,12 +330,13 @@ class GameMenu(Menu):
             self.game.check_events()
             self.check_input()
             self.game.display.fill((0, 0, 0))
-            self.game.draw_text('Game Selections', 30, self.mid_w, self.mid_h - 200)
+            self.game.draw_text('Game Selections', 30, self.mid_w, self.mid_h - 250)
             self.game.draw_text("Ancient Quest", 20, self.g1x, self.g1y)
             self.game.draw_text("Platformer", 20, self.g2x, self.g2y)
             self.game.draw_text("Shark Attack", 20, self.g3x, self.g3y)
             self.draw_cross()
             self.draw_cursor()
+            self.draw_characters()
             self.blit_screen()
 
     def move_cursor(self):
@@ -376,6 +377,17 @@ class GameMenu(Menu):
             elif self.state == 'Shark Attack':
                 self.playing = True
                 shark_attack.SharkAttack.game_loop(self)
+
+    def draw_characters(self):
+        sharkS = pygame.image.load('Sprites/SA/Characters/Shark.R.png')
+        platformerS = pygame.image.load('Sprites/P/Characters/Platformer.png')
+        adventurerS = pygame.image.load('Sprites/AQ/Characters/Adventurer.png')
+        if self.state == 'Ancient Quest':
+            self.game.display.blit(adventurerS, (self.mid_w - 85, self.mid_h - 230))
+        elif self.state == 'Shark Attack':
+            self.game.display.blit(sharkS, (self.mid_w - 85, self.mid_h - 230))
+        elif self.state == 'Platformer':
+            self.game.display.blit(platformerS, (self.mid_w - 85, self.mid_h - 230))
 
 
 pygame.display.quit()
