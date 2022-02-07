@@ -2,6 +2,21 @@ import pygame
 # 3+ lives
 
 
+class Player:
+    def __init__(self):
+        self.HP = 3 + self.Gain
+        self.Damage = 1
+        self.Speed = 15
+        self.Gain = 0  # Stats increase per level(+10HP, +5 Damage, +5 Speed), Difficulty of enemies is same as level
+
+
+class Enemies:
+    def __init__(self):
+        self.Speed = 5
+        self.HP = 1
+        self.Damage = 1
+
+
 class Platformer:
 
     def __init__(self, game):

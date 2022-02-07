@@ -2,6 +2,20 @@ import pygame
 # 3 Lives
 
 
+class Player:
+    def __init__(self):
+        self.HP = 3
+        self.Damage = 1
+        self.Speed = 15
+
+
+class Enemies:
+    def __init__(self):
+        self.Speed = 5
+        self.HP = 1
+        self.Damage = 1
+
+
 class SharkAttack:
 
     def __init__(self, game):
