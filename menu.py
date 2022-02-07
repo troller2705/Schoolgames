@@ -1,7 +1,12 @@
 import pygame
+import sys
+
+sys.path.append("./Games/P")
+sys.path.append("./Games/SA")
+sys.path.append("./Games/AQ")
 import platformer
-import ancient_quest
 import shark_attack
+import ancient_quest
 
 
 class Menu:
