@@ -31,9 +31,9 @@ class Menu:
         #   [[self.mid_w, self.mid_h], [340, 345], [400, 390], [460, 345]], 0)
 
     def draw_characters(self):
-        shark = pygame.image.load('Sprites/Shark.R.png')
-        platformerS = pygame.image.load('Sprites/Platformer.png')
-        adventurer = pygame.image.load('Sprites/Adventurer.png')
+        shark = pygame.image.load('Sprites/SA/Characters/Shark.R.png')
+        platformerS = pygame.image.load('Sprites/P/Characters/Platformer.png')
+        adventurer = pygame.image.load('Sprites/AQ/Characters/Adventurer.png')
         self.game.display.blit(shark, (self.mid_w / 6, self.mid_h - 50))
         self.game.display.blit(platformerS, (self.mid_w - 85, self.mid_h - 230))
         self.game.display.blit(adventurer, (self.mid_w + 200, self.mid_h - 50))
