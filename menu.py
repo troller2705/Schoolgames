@@ -55,7 +55,7 @@ class MainMenu(Menu):
             self.game.check_events()
             self.check_input()
             self.game.display.fill(self.game.BLACK)
-            self.game.draw_text("Trollers Paradise", 30, self.mid_w, self.mid_h - 250)
+            self.game.draw_text("Troller's Paradise", 30, self.mid_w, self.mid_h - 250)
             self.game.draw_text("Start Game", 20, self.startx, self.starty)
             self.game.draw_text("Options", 20, self.optionsx, self.optionsy)
             self.game.draw_text("Credits", 20, self.creditsx, self.creditsy)
@@ -68,29 +68,29 @@ class MainMenu(Menu):
     def move_cursor(self):
         if self.game.DOWN_KEY:
             if self.state == 'Start':
-                self.cursor_rect.midtop = (self.optionsx + -65, self.optionsy)
+                self.cursor_rect.midtop = (self.optionsx + -70, self.optionsy)
                 self.state = 'Options'
             elif self.state == 'Options':
-                self.cursor_rect.midtop = (self.creditsx + -65, self.creditsy)
+                self.cursor_rect.midtop = (self.creditsx + -70, self.creditsy)
                 self.state = 'Credits'
             elif self.state == 'Credits':
-                self.cursor_rect.midtop = (self.exitx + -35, self.exity)
+                self.cursor_rect.midtop = (self.exitx + -40, self.exity)
                 self.state = 'Exit'
             elif self.state == 'Exit':
                 self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
                 self.state = 'Start'
         elif self.game.UP_KEY:
             if self.state == 'Start':
-                self.cursor_rect.midtop = (self.exitx + -35, self.exity)
+                self.cursor_rect.midtop = (self.exitx + -40, self.exity)
                 self.state = 'Exit'
             elif self.state == 'Options':
                 self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
                 self.state = 'Start'
             elif self.state == 'Credits':
-                self.cursor_rect.midtop = (self.optionsx + -65, self.optionsy)
+                self.cursor_rect.midtop = (self.optionsx + -70, self.optionsy)
                 self.state = 'Options'
             elif self.state == 'Exit':
-                self.cursor_rect.midtop = (self.creditsx + -65, self.creditsy)
+                self.cursor_rect.midtop = (self.creditsx + -70, self.creditsy)
                 self.state = 'Credits'
 
     def check_input(self):
@@ -115,7 +115,7 @@ class OptionsMenu(Menu):
         self.volx, self.voly = self.mid_w, self.mid_h + 200
         self.controlsx, self.controlsy = self.mid_w, self.mid_h + 225
         self.videox, self.videoy = self.mid_w, self.mid_h + 250
-        self.cursor_rect.midtop = (self.volx + -70, self.voly)
+        self.cursor_rect.midtop = (self.volx + -60, self.voly)
 
     def display_menu(self):
         self.run_display = True
@@ -137,20 +137,20 @@ class OptionsMenu(Menu):
                 self.cursor_rect.midtop = (self.controlsx + -80, self.controlsy)
                 self.state = 'Controls'
             elif self.state == 'Controls':
-                self.cursor_rect.midtop = (self.videox + -45, self.videoy)
+                self.cursor_rect.midtop = (self.videox + -50, self.videoy)
                 self.state = 'Video'
             elif self.state == 'Video':
-                self.cursor_rect.midtop = (self.volx + -65, self.voly)
+                self.cursor_rect.midtop = (self.volx + -60, self.voly)
                 self.state = 'Volume'
         elif self.game.UP_KEY:
             if self.state == 'Volume':
-                self.cursor_rect.midtop = (self.videox + -45, self.videoy)
+                self.cursor_rect.midtop = (self.videox + -50, self.videoy)
                 self.state = 'Video'
             elif self.state == 'Video':
                 self.cursor_rect.midtop = (self.controlsx + -80, self.controlsy)
                 self.state = 'Controls'
             elif self.state == 'Controls':
-                self.cursor_rect.midtop = (self.volx + -65, self.voly)
+                self.cursor_rect.midtop = (self.volx + -60, self.voly)
                 self.state = 'Volume'
 
     def check_input(self):
@@ -173,9 +173,9 @@ class VolumeMenu(Menu):
     def __init__(self, game):
         Menu.__init__(self, game)
         self.state = 'Volume Slide'
-        self.volx, self.voly = self.mid_w, self.mid_h + 200
-        self.controlsx, self.controlsy = self.mid_w, self.mid_h + 225
-        self.cursor_rect.midtop = (self.volx + -115, self.voly)
+        self.volx, self.voly = self.mid_w, self.mid_h + 225
+        self.controlsx, self.controlsy = self.mid_w, self.mid_h + 250
+        self.cursor_rect.midtop = (self.volx + -125, self.voly)
 
     def display_menu(self):
         self.run_display = True
@@ -193,17 +193,17 @@ class VolumeMenu(Menu):
     def move_cursor(self):
         if self.game.DOWN_KEY:
             if self.state == 'Volume Slide':
-                self.cursor_rect.midtop = (self.controlsx + -50, self.controlsy)
+                self.cursor_rect.midtop = (self.controlsx + -55, self.controlsy)
                 self.state = 'Apply'
             elif self.state == 'Apply':
-                self.cursor_rect.midtop = (self.volx + -115, self.voly)
+                self.cursor_rect.midtop = (self.volx + -125, self.voly)
                 self.state = 'Volume Slide'
         elif self.game.UP_KEY:
             if self.state == 'Volume Slide':
-                self.cursor_rect.midtop = (self.controlsx + -50, self.controlsy)
+                self.cursor_rect.midtop = (self.controlsx + -55, self.controlsy)
                 self.state = 'Apply'
             elif self.state == 'Apply':
-                self.cursor_rect.midtop = (self.volx + -115, self.voly)
+                self.cursor_rect.midtop = (self.volx + -125, self.voly)
                 self.state = 'Volume Slide'
 
     def check_input(self):
@@ -248,10 +248,9 @@ class VideoMenu(Menu):
     def __init__(self, game):
         Menu.__init__(self, game)
         self.state = 'Video Slide'
-        self.volx, self.voly = self.mid_w, self.mid_h + 200
-        self.controlsx, self.controlsy = self.mid_w, self.mid_h + 225
-        self.videox, self.videoy = self.mid_w, self.mid_h + 250
-        self.cursor_rect.midtop = (self.volx + -95, self.voly)
+        self.volx, self.voly = self.mid_w, self.mid_h + 225
+        self.controlsx, self.controlsy = self.mid_w, self.mid_h + 250
+        self.cursor_rect.midtop = (self.volx + -110, self.voly)
 
     def display_menu(self):
         self.run_display = True
@@ -270,17 +269,17 @@ class VideoMenu(Menu):
     def move_cursor(self):
         if self.game.DOWN_KEY:
             if self.state == 'Video Slide':
-                self.cursor_rect.midtop = (self.controlsx + -50, self.controlsy)
+                self.cursor_rect.midtop = (self.controlsx + -55, self.controlsy)
                 self.state = 'Apply'
             elif self.state == 'Apply':
-                self.cursor_rect.midtop = (self.volx + -95, self.voly)
+                self.cursor_rect.midtop = (self.volx + -110, self.voly)
                 self.state = 'Video Slide'
         elif self.game.UP_KEY:
             if self.state == 'Video Slide':
-                self.cursor_rect.midtop = (self.controlsx + -50, self.controlsy)
+                self.cursor_rect.midtop = (self.controlsx + -55, self.controlsy)
                 self.state = 'Apply'
             elif self.state == 'Apply':
-                self.cursor_rect.midtop = (self.volx + -95, self.voly)
+                self.cursor_rect.midtop = (self.volx + -110, self.voly)
                 self.state = 'Video Slide'
 
     def check_input(self):
@@ -309,7 +308,7 @@ class CreditsMenu(Menu):
             self.game.display.fill(self.game.BLACK)
             self.game.draw_text('Credits', 40, self.mid_w, self.mid_h - 200)
             self.game.draw_text('Made by Deathboard Productions', 25, self.mid_w, self.mid_h - 100)
-            self.game.draw_text('Lead Developer Graphics Designer Sound Engineer:', 15, self.mid_w, self.mid_h + 25)
+            self.game.draw_text('Lead Developer, Graphics Designer, Sound Engineer:', 15, self.mid_w, self.mid_h + 25)
             self.game.draw_text('Troller AKA Cole', 25, self.mid_w, self.mid_h + 50)
 
             self.blit_screen()
@@ -320,10 +319,10 @@ class GameMenu(Menu):
         Menu.__init__(self, game)
         self.playing = False
         self.state = 'Ancient Quest'
-        self.g1x, self.g1y = self.mid_w, self.mid_h + 200
-        self.g2x, self.g2y = self.mid_w, self.mid_h + 225
-        self.g3x, self.g3y = self.mid_w, self.mid_h + 250
-        self.cursor_rect.midtop = (self.g1x + -120, self.g1y)
+        self.g1x, self.g1y = self.mid_w, self.mid_h + 225
+        self.g2x, self.g2y = self.mid_w, self.mid_h + 250
+        self.g3x, self.g3y = self.mid_w, self.mid_h + 275
+        self.cursor_rect.midtop = (self.g1x + -135, self.g1y)
 
     def display_menu(self):
         self.run_display = True
@@ -345,17 +344,17 @@ class GameMenu(Menu):
                 self.cursor_rect.midtop = (self.g2x + -105, self.g2y)
                 self.state = 'Platformer'
             elif self.state == 'Platformer':
-                self.cursor_rect.midtop = (self.g3x + -115, self.g3y)
+                self.cursor_rect.midtop = (self.g3x + -125, self.g3y)
                 self.state = 'Shark Attack'
             elif self.state == 'Shark Attack':
-                self.cursor_rect.midtop = (self.g1x + -120, self.g1y)
+                self.cursor_rect.midtop = (self.g1x + -135, self.g1y)
                 self.state = 'Ancient Quest'
         elif self.game.UP_KEY:
             if self.state == 'Ancient Quest':
-                self.cursor_rect.midtop = (self.g3x + -115, self.g3y)
+                self.cursor_rect.midtop = (self.g3x + -125, self.g3y)
                 self.state = 'Shark Attack'
             elif self.state == 'Platformer':
-                self.cursor_rect.midtop = (self.g1x + -120, self.g1y)
+                self.cursor_rect.midtop = (self.g1x + -135, self.g1y)
                 self.state = 'Ancient Quest'
             elif self.state == 'Shark Attack':
                 self.cursor_rect.midtop = (self.g2x + -105, self.g2y)
