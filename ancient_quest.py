@@ -1,4 +1,14 @@
 import pygame
+# 100 hp half heart every 10 hp lost
+
+
+class Player:
+    def __init__(self):
+        self.HP = 100
+        self.Damage = 20
+        self.Speed = 15
+        self.Level = 0  # Stats increase per level(+10HP, +5 Damage, +5 Speed), Difficulty of enemies is same as level
+        self.Difficulty = self.Level
 
 
 class AncientQuest:

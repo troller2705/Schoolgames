@@ -1,4 +1,5 @@
 import pygame
+# 3 Lives
 
 
 class SharkAttack:

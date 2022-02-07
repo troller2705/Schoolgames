@@ -1,4 +1,5 @@
 import pygame
+# 3+ lives
 
 
 class Platformer:
