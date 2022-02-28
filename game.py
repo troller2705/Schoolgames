@@ -16,11 +16,11 @@ class Game:
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY, self.ESC_KEY = False, False, False, False, False
         self.DISPLAY_W, self.DISPLAY_H = 800, 600
         self.display = pygame.display.set_mode((self.DISPLAY_W, self.DISPLAY_H), pygame.FULLSCREEN)
-        pygame_icon = pygame.image.load('icon.png')
+        pygame_icon = pygame.image.load('UI/icon.png')
         pygame.display.set_icon(pygame_icon)
         pygame.display.set_caption("Troller's Paradise")
         # self.display = pygame.Surface((self.DISPLAY_W, self.DISPLAY_H), pygame.RESIZABLE)
-        self.font_name = '8-Bit.ttf'
+        self.font_name = 'UI/8-Bit.ttf'
         self.BLACK, self.WHITE, self.GREEN, self.RED = (0, 0, 0), (255, 255, 255), (0, 255, 0), (255, 0, 0)
         self.main_menu = MainMenu(self)
         self.options = OptionsMenu(self)

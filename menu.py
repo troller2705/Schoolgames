@@ -1,9 +1,9 @@
 import pygame
 import sys
 
-sys.path.append("./Games/P")
-sys.path.append("./Games/SA")
-sys.path.append("./Games/AQ")
+sys.path.append('./Games/P')
+sys.path.append('./Games/SA')
+sys.path.append('./Games/AQ')
 import platformer
 import shark_attack
 import ancient_quest
@@ -36,9 +36,9 @@ class Menu:
         #   [[self.mid_w, self.mid_h], [340, 345], [400, 390], [460, 345]], 0)
 
     def draw_characters(self):
-        sharkS = pygame.image.load('Sprites/SA/Characters/Shark.R.png')
-        platformerS = pygame.image.load('Sprites/P/Characters/Platformer.png')
-        adventurerS = pygame.image.load('Sprites/AQ/Characters/Adventurer.png')
+        sharkS = pygame.image.load('Games/SA/Characters/Shark.R.png')
+        platformerS = pygame.image.load('Games/P/Characters/Platformer.png')
+        adventurerS = pygame.image.load('Games/AQ/Characters/Adventurer.png')
         self.game.display.blit(sharkS, (self.mid_w / 6, self.mid_h - 50))
         self.game.display.blit(platformerS, (self.mid_w - 85, self.mid_h - 230))
         self.game.display.blit(adventurerS, (self.mid_w + 200, self.mid_h - 50))
@@ -47,7 +47,7 @@ class Menu:
 class MainMenu(Menu):
     def __init__(self, game):
         Menu.__init__(self, game)
-        self.state = "Start"
+        self.state = 'Start'
         self.startx, self.starty = self.mid_w, self.mid_h + 200
         self.optionsx, self.optionsy = self.mid_w, self.mid_h + 225
         self.creditsx, self.creditsy = self.mid_w, self.mid_h + 250
@@ -60,11 +60,12 @@ class MainMenu(Menu):
             self.game.check_events()
             self.check_input()
             self.game.display.fill(self.game.BLACK)
+            # double quotes for use of apostrophe
             self.game.draw_text("Troller's Paradise", 30, self.mid_w, self.mid_h - 250)
-            self.game.draw_text("Start Game", 20, self.startx, self.starty)
-            self.game.draw_text("Options", 20, self.optionsx, self.optionsy)
-            self.game.draw_text("Credits", 20, self.creditsx, self.creditsy)
-            self.game.draw_text("Exit", 20, self.exitx, self.exity)
+            self.game.draw_text('Start Game', 20, self.startx, self.starty)
+            self.game.draw_text('Options', 20, self.optionsx, self.optionsy)
+            self.game.draw_text('Credits', 20, self.creditsx, self.creditsy)
+            self.game.draw_text('Exit', 20, self.exitx, self.exity)
             self.draw_cross()
             self.draw_cursor()
             self.draw_characters()
@@ -129,9 +130,9 @@ class OptionsMenu(Menu):
             self.check_input()
             self.game.display.fill((0, 0, 0))
             self.game.draw_text('Options', 30, self.mid_w, self.mid_h - 200)
-            self.game.draw_text("Volume", 20, self.volx, self.voly)
-            self.game.draw_text("Controls", 20, self.controlsx, self.controlsy)
-            self.game.draw_text("Video", 20, self.videox, self.videoy)
+            self.game.draw_text('Volume', 20, self.volx, self.voly)
+            self.game.draw_text('Controls', 20, self.controlsx, self.controlsy)
+            self.game.draw_text('Video', 20, self.videox, self.videoy)
             self.draw_cross()
             self.draw_cursor()
             self.blit_screen()
@@ -189,8 +190,8 @@ class VolumeMenu(Menu):
             self.check_input()
             self.game.display.fill((0, 0, 0))
             self.game.draw_text('Volume', 30, self.mid_w, self.mid_h - 200)
-            self.game.draw_text("Volume Slide", 20, self.volx, self.voly)
-            self.game.draw_text("Apply", 20, self.controlsx, self.controlsy)
+            self.game.draw_text('Volume Slide', 20, self.volx, self.voly)
+            self.game.draw_text('Apply', 20, self.controlsx, self.controlsy)
             self.draw_cross()
             self.draw_cursor()
             self.blit_screen()
@@ -218,9 +219,9 @@ class VolumeMenu(Menu):
             self.run_display = False
         if self.game.START_KEY:
             if self.state == 'Volume Slide':
-                print("Slider")
+                print('Slider')
             elif self.state == 'Apply':
-                print("Applied")
+                print('Applied')
 
 
 class ControlsMenu(Menu):
@@ -237,9 +238,9 @@ class ControlsMenu(Menu):
             self.check_input()
             self.game.display.fill((0, 0, 0))
             self.game.draw_text('Controls', 30, self.mid_w, self.mid_h - 200)
-            self.game.draw_text("Arrow Keys", 20, self.volx, self.voly)
-            self.game.draw_text("Enter", 20, self.controlsx, self.controlsy)
-            self.game.draw_text("Backspace", 20, self.videox, self.videoy)
+            self.game.draw_text('Arrow Keys', 20, self.volx, self.voly)
+            self.game.draw_text('Enter', 20, self.controlsx, self.controlsy)
+            self.game.draw_text('Backspace', 20, self.videox, self.videoy)
             self.draw_cross()
             self.blit_screen()
 
@@ -264,9 +265,10 @@ class VideoMenu(Menu):
             self.check_input()
             self.game.display.fill((0, 0, 0))
             self.game.draw_text('Video', 30, self.mid_w, self.mid_h - 200)
-            self.game.draw_text("Video Slide", 20, self.volx, self.voly)
+            self.game.draw_text('Video Slide', 20, self.volx, self.voly)
             self.game.slider()
-            self.game.draw_text("Apply", 20, self.controlsx, self.controlsy)
+            self.game.draw_text()
+            self.game.draw_text('Apply', 20, self.controlsx, self.controlsy)
             self.draw_cross()
             self.draw_cursor()
             self.blit_screen()
@@ -294,9 +296,9 @@ class VideoMenu(Menu):
             self.run_display = False
         if self.game.START_KEY:
             if self.state == 'Video Slide':
-                print("Video")
+                print('Video')
             elif self.state == 'Apply':
-                print("Apply")
+                print('Apply')
 
 
 class CreditsMenu(Menu):
@@ -336,9 +338,9 @@ class GameMenu(Menu):
             self.check_input()
             self.game.display.fill((0, 0, 0))
             self.game.draw_text('Game Selections', 30, self.mid_w, self.mid_h - 250)
-            self.game.draw_text("Ancient Quest", 20, self.g1x, self.g1y)
-            self.game.draw_text("Platformer", 20, self.g2x, self.g2y)
-            self.game.draw_text("Shark Attack", 20, self.g3x, self.g3y)
+            self.game.draw_text('Ancient Quest', 20, self.g1x, self.g1y)
+            self.game.draw_text('Platformer', 20, self.g2x, self.g2y)
+            self.game.draw_text('Shark Attack', 20, self.g3x, self.g3y)
             self.draw_cross()
             self.draw_cursor()
             self.draw_characters()
