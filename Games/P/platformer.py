@@ -4,10 +4,10 @@ import pygame
 
 class Player:
     def __init__(self):
-        self.HP = 3 + self.Gain
+        self.lives
+        self.HP
         self.Damage = 1
         self.Speed = 15
-        self.Gain = 0  # Stats increase per level(+10HP, +5 Damage, +5 Speed), Difficulty of enemies is same as level
 
 
 class Enemies:
