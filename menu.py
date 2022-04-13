@@ -267,7 +267,6 @@ class VideoMenu(Menu):
             self.game.draw_text('Video', 30, self.mid_w, self.mid_h - 200)
             self.game.draw_text('Video Slide', 20, self.volx, self.voly)
             self.game.slider()
-            self.game.draw_text()
             self.game.draw_text('Apply', 20, self.controlsx, self.controlsy)
             self.draw_cross()
             self.draw_cursor()
@@ -386,9 +385,9 @@ class GameMenu(Menu):
                 shark_attack.SharkAttack.game_loop(self)
 
     def draw_characters(self):
-        sharkS = pygame.image.load('Sprites/SA/Characters/Shark.R.png')
-        platformerS = pygame.image.load('Sprites/P/Characters/Platformer.png')
-        adventurerS = pygame.image.load('Sprites/AQ/Characters/Adventurer.png')
+        sharkS = pygame.image.load('Games/SA/Characters/Shark.R.png')
+        platformerS = pygame.image.load('Games/P/Characters/Platformer.png')
+        adventurerS = pygame.image.load('Games/AQ/Characters/Adventurer.png')
         if self.state == 'Ancient Quest':
             self.game.display.blit(adventurerS, (self.mid_w - 85, self.mid_h - 230))
         elif self.state == 'Shark Attack':
