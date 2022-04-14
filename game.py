@@ -14,10 +14,8 @@ class Game:
         pygame.init()
         self.running, self.playing = True, False
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY, self.ESC_KEY = False, False, False, False, False
-        self.Sizes_W = [800, 1280, 1600, 1680, 1920]
-        self.Sizes_H = [600, 1024, 1200, 1050, 1200]
-        self.Sizes_L = len(self.Sizes_W)
-        self.DISPLAY_W, self.DISPLAY_H = self.Sizes_W[0], self.Sizes_H[0]
+        self.DISPLAY_W = pygame.display.get_desktop_sizes()[0][0]
+        self.DISPLAY_H = pygame.display.get_desktop_sizes()[0][1]
         self.mode = pygame.RESIZABLE
         self.display = pygame.display.set_mode((self.DISPLAY_W, self.DISPLAY_H), self.mode)
         pygame_icon = pygame.image.load('UI/icon.png')

@@ -241,7 +241,7 @@ class VideoMenu(Menu):
         self.n = 0
         self.volx, self.voly = self.mid_w, self.mid_h + 225
         self.controlsx, self.controlsy = self.mid_w, self.mid_h + 250
-        self.cursor_rect.midtop = (self.volx + -55, self.voly)
+        self.cursor_rect.midtop = (self.volx + -155, self.voly)
 
     def display_menu(self):
         self.run_display = True
@@ -251,29 +251,11 @@ class VideoMenu(Menu):
             self.game.display.fill((0, 0, 0))
             self.game.draw_text('Video', 30, self.mid_w, self.mid_h - 200)
             self.game.draw_text(f'Mode:{self.game.VideoMode}', 20, self.volx, self.voly)
-            self.game.draw_text(f'Size:{self.game.DISPLAY_W}x{self.game.DISPLAY_H}', 20, self.controlsx, self.controlsy)
             self.draw_cross()
             self.draw_cursor()
             self.blit_screen()
 
-    def move_cursor(self):
-        if self.game.DOWN_KEY:
-            if self.state == 'Video Mode':
-                self.cursor_rect.midtop = (self.controlsx + -55, self.controlsy)
-                self.state = 'Size'
-            elif self.state == 'Size':
-                self.cursor_rect.midtop = (self.volx + -55, self.voly)
-                self.state = 'Video Mode'
-        elif self.game.UP_KEY:
-            if self.state == 'Video Slide':
-                self.cursor_rect.midtop = (self.controlsx + -55, self.controlsy)
-                self.state = 'Size'
-            elif self.state == 'Size':
-                self.cursor_rect.midtop = (self.volx + -55, self.voly)
-                self.state = 'Video Mode'
-
     def check_input(self):
-        self.move_cursor()
         if self.game.BACK_KEY:
             self.game.curr_menu = self.game.options
             self.run_display = False
@@ -281,17 +263,11 @@ class VideoMenu(Menu):
             if self.state == 'Video Mode' and self.game.VideoMode == 'Windowed':
                 self.game.VideoMode = 'Fullscreen'
                 self.game.mode = pygame.FULLSCREEN
+                self.game.display.blit
             elif self.state == 'Video Mode' and self.game.VideoMode == 'Fullscreen':
                 self.game.VideoMode = 'Windowed'
                 self.game.mode = pygame.RESIZABLE
-            elif self.state == 'Size' and self.n <= 5:
-                self.n += 1
-                self.game.DISPLAY_W = self.game.Sizes_W[self.n]
-                self.game.DISPLAY_H = self.game.Sizes_H[self.n]
-            elif self.state == 'Size' and self.n > 5:
-                self.n = 0
-                self.game.DISPLAY_W = self.game.Sizes_W[self.n]
-                self.game.DISPLAY_H = self.game.Sizes_H[self.n]
+                self.game.display.blit
 
 
 class CreditsMenu(Menu):
