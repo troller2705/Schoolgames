@@ -284,11 +284,11 @@ class VideoMenu(Menu):
             elif self.state == 'Video Mode' and self.game.VideoMode == 'Fullscreen':
                 self.game.VideoMode = 'Windowed'
                 self.game.mode = pygame.RESIZABLE
-            elif self.state == 'Size' and self.n <= self.game.Sizes_L:
+            elif self.state == 'Size' and self.n <= 5:
                 self.n += 1
                 self.game.DISPLAY_W = self.game.Sizes_W[self.n]
                 self.game.DISPLAY_H = self.game.Sizes_H[self.n]
-            elif self.state == 'Size' and self.n > self.game.Sizes_L:
+            elif self.state == 'Size' and self.n > 5:
                 self.n = 0
                 self.game.DISPLAY_W = self.game.Sizes_W[self.n]
                 self.game.DISPLAY_H = self.game.Sizes_H[self.n]
