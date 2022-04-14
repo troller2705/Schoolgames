@@ -178,10 +178,10 @@ class OptionsMenu(Menu):
 class VolumeMenu(Menu):
     def __init__(self, game):
         Menu.__init__(self, game)
-        self.state = 'Volume Slide'
+        self.state = 'Volume Mute'
         self.volx, self.voly = self.mid_w, self.mid_h + 225
         self.controlsx, self.controlsy = self.mid_w, self.mid_h + 250
-        self.cursor_rect.midtop = (self.volx + -125, self.voly)
+        self.cursor_rect.midtop = (self.volx + -85, self.voly)
 
     def display_menu(self):
         self.run_display = True
@@ -190,38 +190,22 @@ class VolumeMenu(Menu):
             self.check_input()
             self.game.display.fill((0, 0, 0))
             self.game.draw_text('Volume', 30, self.mid_w, self.mid_h - 200)
-            self.game.draw_text('Volume Slide', 20, self.volx, self.voly)
-            self.game.draw_text('Apply', 20, self.controlsx, self.controlsy)
+            self.game.draw_text(f'Mute:{self.game.mute}', 20, self.volx, self.voly)
             self.draw_cross()
             self.draw_cursor()
             self.blit_screen()
 
-    def move_cursor(self):
-        if self.game.DOWN_KEY:
-            if self.state == 'Volume Slide':
-                self.cursor_rect.midtop = (self.controlsx + -55, self.controlsy)
-                self.state = 'Apply'
-            elif self.state == 'Apply':
-                self.cursor_rect.midtop = (self.volx + -125, self.voly)
-                self.state = 'Volume Slide'
-        elif self.game.UP_KEY:
-            if self.state == 'Volume Slide':
-                self.cursor_rect.midtop = (self.controlsx + -55, self.controlsy)
-                self.state = 'Apply'
-            elif self.state == 'Apply':
-                self.cursor_rect.midtop = (self.volx + -125, self.voly)
-                self.state = 'Volume Slide'
-
     def check_input(self):
-        self.move_cursor()
         if self.game.BACK_KEY:
             self.game.curr_menu = self.game.options
             self.run_display = False
         if self.game.START_KEY:
-            if self.state == 'Volume Slide':
-                print('Slider')
-            elif self.state == 'Apply':
-                print('Applied')
+            if self.state == 'Volume Mute' and self.game.mute == 'Off':
+                pygame.mixer.pause()
+                self.game.mute = 'On'
+            elif self.state == 'Volume Mute' and self.game.mute == 'On':
+                pygame.mixer.unpause()
+                self.game.mute = 'Off'
 
 
 class ControlsMenu(Menu):
@@ -253,10 +237,11 @@ class ControlsMenu(Menu):
 class VideoMenu(Menu):
     def __init__(self, game):
         Menu.__init__(self, game)
-        self.state = 'Video Slide'
+        self.state = 'Video Mode'
+        self.n = 0
         self.volx, self.voly = self.mid_w, self.mid_h + 225
         self.controlsx, self.controlsy = self.mid_w, self.mid_h + 250
-        self.cursor_rect.midtop = (self.volx + -110, self.voly)
+        self.cursor_rect.midtop = (self.volx + -55, self.voly)
 
     def display_menu(self):
         self.run_display = True
@@ -265,28 +250,27 @@ class VideoMenu(Menu):
             self.check_input()
             self.game.display.fill((0, 0, 0))
             self.game.draw_text('Video', 30, self.mid_w, self.mid_h - 200)
-            self.game.draw_text('Video Slide', 20, self.volx, self.voly)
-            self.game.slider()
-            self.game.draw_text('Apply', 20, self.controlsx, self.controlsy)
+            self.game.draw_text(f'Mode:{self.game.VideoMode}', 20, self.volx, self.voly)
+            self.game.draw_text(f'Size:{self.game.DISPLAY_W}x{self.game.DISPLAY_H}', 20, self.controlsx, self.controlsy)
             self.draw_cross()
             self.draw_cursor()
             self.blit_screen()
 
     def move_cursor(self):
         if self.game.DOWN_KEY:
-            if self.state == 'Video Slide':
+            if self.state == 'Video Mode':
                 self.cursor_rect.midtop = (self.controlsx + -55, self.controlsy)
-                self.state = 'Apply'
-            elif self.state == 'Apply':
-                self.cursor_rect.midtop = (self.volx + -110, self.voly)
-                self.state = 'Video Slide'
+                self.state = 'Size'
+            elif self.state == 'Size':
+                self.cursor_rect.midtop = (self.volx + -55, self.voly)
+                self.state = 'Video Mode'
         elif self.game.UP_KEY:
             if self.state == 'Video Slide':
                 self.cursor_rect.midtop = (self.controlsx + -55, self.controlsy)
-                self.state = 'Apply'
-            elif self.state == 'Apply':
-                self.cursor_rect.midtop = (self.volx + -110, self.voly)
-                self.state = 'Video Slide'
+                self.state = 'Size'
+            elif self.state == 'Size':
+                self.cursor_rect.midtop = (self.volx + -55, self.voly)
+                self.state = 'Video Mode'
 
     def check_input(self):
         self.move_cursor()
@@ -294,10 +278,20 @@ class VideoMenu(Menu):
             self.game.curr_menu = self.game.options
             self.run_display = False
         if self.game.START_KEY:
-            if self.state == 'Video Slide':
-                print('Video')
-            elif self.state == 'Apply':
-                print('Apply')
+            if self.state == 'Video Mode' and self.game.VideoMode == 'Windowed':
+                self.game.VideoMode = 'Fullscreen'
+                self.game.mode = pygame.FULLSCREEN
+            elif self.state == 'Video Mode' and self.game.VideoMode == 'Fullscreen':
+                self.game.VideoMode = 'Windowed'
+                self.game.mode = pygame.RESIZABLE
+            elif self.state == 'Size' and self.n <= self.game.Sizes_L:
+                self.n += 1
+                self.game.DISPLAY_W = self.game.Sizes_W[self.n]
+                self.game.DISPLAY_H = self.game.Sizes_H[self.n]
+            elif self.state == 'Size' and self.n > self.game.Sizes_L:
+                self.n = 0
+                self.game.DISPLAY_W = self.game.Sizes_W[self.n]
+                self.game.DISPLAY_H = self.game.Sizes_H[self.n]
 
 
 class CreditsMenu(Menu):
@@ -367,7 +361,6 @@ class GameMenu(Menu):
                 self.cursor_rect.midtop = (self.g2x + -105, self.g2y)
                 self.state = 'Platformer'
 
-    # noinspection PyTypeChecker
     def check_input(self):
         self.move_cursor()
         if self.game.BACK_KEY:

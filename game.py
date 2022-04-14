@@ -14,8 +14,12 @@ class Game:
         pygame.init()
         self.running, self.playing = True, False
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY, self.ESC_KEY = False, False, False, False, False
-        self.DISPLAY_W, self.DISPLAY_H = 800, 600
-        self.display = pygame.display.set_mode((self.DISPLAY_W, self.DISPLAY_H), pygame.RESIZABLE)
+        self.Sizes_W = [800, 1280, 1600, 1680, 1920]
+        self.Sizes_H = [600, 1024, 1200, 1050, 1200]
+        self.Sizes_L = len(self.Sizes_W)
+        self.DISPLAY_W, self.DISPLAY_H = self.Sizes_W[0], self.Sizes_H[0]
+        self.mode = pygame.RESIZABLE
+        self.display = pygame.display.set_mode((self.DISPLAY_W, self.DISPLAY_H), self.mode)
         pygame_icon = pygame.image.load('UI/icon.png')
         pygame.display.set_icon(pygame_icon)
         pygame.display.set_caption("Troller's Paradise")
@@ -30,6 +34,9 @@ class Game:
         self.controls_menu = ControlsMenu(self)
         self.video_menu = VideoMenu(self)
         self.curr_menu = self.main_menu
+        self.mute = 'Off'
+        self.VideoMode = 'Windowed'
+        pygame.mixer.unpause()
 
     def check_events(self):
         for event in pygame.event.get():
@@ -58,9 +65,9 @@ class Game:
         text_rect.center = (x, y)
         self.display.blit(text_surface, text_rect)
 
-    def slider(self):
-        slider = Slider(self.display, 100, 100, 800, 40, min=0, max=99, step=1)
-        output = TextBox(self.display, 475, 200, 50, 50, fontSize=30)
+    def slider(self, x, y, w, h):
+        slider = Slider(self.display, x, y, w, h, min=0, max=100, step=1)
+        output = TextBox(self.display, x, y, w, h, fontSize=30)
         output.disable()
 
         output.setText(slider.getValue())
