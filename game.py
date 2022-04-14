@@ -16,8 +16,7 @@ class Game:
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY, self.ESC_KEY = False, False, False, False, False
         self.DISPLAY_W = pygame.display.get_desktop_sizes()[0][0]
         self.DISPLAY_H = pygame.display.get_desktop_sizes()[0][1]
-        self.mode = pygame.RESIZABLE
-        self.display = pygame.display.set_mode((self.DISPLAY_W, self.DISPLAY_H), self.mode)
+        self.display = pygame.display.set_mode((self.DISPLAY_W, self.DISPLAY_H), pygame.FULLSCREEN)
         pygame_icon = pygame.image.load('UI/icon.png')
         pygame.display.set_icon(pygame_icon)
         pygame.display.set_caption("Troller's Paradise")
@@ -30,11 +29,8 @@ class Game:
         self.game_menu = GameMenu(self)
         self.volume_menu = VolumeMenu(self)
         self.controls_menu = ControlsMenu(self)
-        self.video_menu = VideoMenu(self)
         self.curr_menu = self.main_menu
         self.mute = 'Off'
-        self.VideoMode = 'Windowed'
-        pygame.mixer.unpause()
 
     def check_events(self):
         for event in pygame.event.get():

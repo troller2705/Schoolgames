@@ -120,7 +120,6 @@ class OptionsMenu(Menu):
         self.state = 'Volume'
         self.volx, self.voly = self.mid_w, self.mid_h + 200
         self.controlsx, self.controlsy = self.mid_w, self.mid_h + 225
-        self.videox, self.videoy = self.mid_w, self.mid_h + 250
         self.cursor_rect.midtop = (self.volx + -60, self.voly)
 
     def display_menu(self):
@@ -132,7 +131,6 @@ class OptionsMenu(Menu):
             self.game.draw_text('Options', 30, self.mid_w, self.mid_h - 200)
             self.game.draw_text('Volume', 20, self.volx, self.voly)
             self.game.draw_text('Controls', 20, self.controlsx, self.controlsy)
-            self.game.draw_text('Video', 20, self.videox, self.videoy)
             self.draw_cross()
             self.draw_cursor()
             self.blit_screen()
@@ -143,16 +141,10 @@ class OptionsMenu(Menu):
                 self.cursor_rect.midtop = (self.controlsx + -80, self.controlsy)
                 self.state = 'Controls'
             elif self.state == 'Controls':
-                self.cursor_rect.midtop = (self.videox + -50, self.videoy)
-                self.state = 'Video'
-            elif self.state == 'Video':
                 self.cursor_rect.midtop = (self.volx + -60, self.voly)
                 self.state = 'Volume'
         elif self.game.UP_KEY:
             if self.state == 'Volume':
-                self.cursor_rect.midtop = (self.videox + -50, self.videoy)
-                self.state = 'Video'
-            elif self.state == 'Video':
                 self.cursor_rect.midtop = (self.controlsx + -80, self.controlsy)
                 self.state = 'Controls'
             elif self.state == 'Controls':
@@ -169,8 +161,6 @@ class OptionsMenu(Menu):
                 self.game.curr_menu = self.game.volume_menu
             elif self.state == 'Controls':
                 self.game.curr_menu = self.game.controls_menu
-            elif self.state == 'Video':
-                self.game.curr_menu = self.game.video_menu
 
             self.run_display = False
 
@@ -232,42 +222,6 @@ class ControlsMenu(Menu):
         if self.game.BACK_KEY:
             self.game.curr_menu = self.game.options
             self.run_display = False
-
-
-class VideoMenu(Menu):
-    def __init__(self, game):
-        Menu.__init__(self, game)
-        self.state = 'Video Mode'
-        self.n = 0
-        self.volx, self.voly = self.mid_w, self.mid_h + 225
-        self.controlsx, self.controlsy = self.mid_w, self.mid_h + 250
-        self.cursor_rect.midtop = (self.volx + -155, self.voly)
-
-    def display_menu(self):
-        self.run_display = True
-        while self.run_display:
-            self.game.check_events()
-            self.check_input()
-            self.game.display.fill((0, 0, 0))
-            self.game.draw_text('Video', 30, self.mid_w, self.mid_h - 200)
-            self.game.draw_text(f'Mode:{self.game.VideoMode}', 20, self.volx, self.voly)
-            self.draw_cross()
-            self.draw_cursor()
-            self.blit_screen()
-
-    def check_input(self):
-        if self.game.BACK_KEY:
-            self.game.curr_menu = self.game.options
-            self.run_display = False
-        if self.game.START_KEY:
-            if self.state == 'Video Mode' and self.game.VideoMode == 'Windowed':
-                self.game.VideoMode = 'Fullscreen'
-                self.game.mode = pygame.FULLSCREEN
-                self.game.display.blit
-            elif self.state == 'Video Mode' and self.game.VideoMode == 'Fullscreen':
-                self.game.VideoMode = 'Windowed'
-                self.game.mode = pygame.RESIZABLE
-                self.game.display.blit
 
 
 class CreditsMenu(Menu):
