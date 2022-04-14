@@ -1,8 +1,10 @@
-import SpriteSheet as spritesheet
+import SpriteSheet
+import Enemies
 
 
 class Player:
     def __init__(self):
+        self.Enemy = Enemies.Enemies()
         self.image = None
         self.player = None
         self.y = None
@@ -13,7 +15,7 @@ class Player:
         self.Speed = 15
 
     def sprite(self):
-        self.player = spritesheet.spriteshee('Mario Files/Characters/Mario.png')
+        self.player = SpriteSheet.spritesheet('Mario Files/Characters/Mario.png')
         self.image = self.player.image_at((0, 0, 16, 16))
 
     def death(self):
@@ -31,7 +33,7 @@ class Player:
     def draw(self, screen):
         screen.blit(self.player, (self.x, self.y))
 
-    def attack(self, enemy):
-        enemy.HP -= self.Damage
+    def attack(self):
+        self.Enemy.HP -= self.Damage
         print("You attacked the enemy")
         self.death()
