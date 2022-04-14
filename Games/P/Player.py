@@ -1,3 +1,6 @@
+import SpriteSheet as spritesheet
+
+
 class Player:
     def __init__(self):
         self.image = None
