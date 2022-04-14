@@ -1,12 +1,6 @@
 import pygame
-import pygame_widgets
-from pygame_widgets.slider import Slider
-from pygame_widgets.textbox import TextBox
 
 from menu import *
-from platformer import *
-from ancient_quest import *
-from shark_attack import *
 
 
 class Game:
@@ -58,10 +52,3 @@ class Game:
         text_rect = text_surface.get_rect()
         text_rect.center = (x, y)
         self.display.blit(text_surface, text_rect)
-
-    def slider(self, x, y, w, h):
-        slider = Slider(self.display, x, y, w, h, min=0, max=100, step=1)
-        output = TextBox(self.display, x, y, w, h, fontSize=30)
-        output.disable()
-
-        output.setText(slider.getValue())
