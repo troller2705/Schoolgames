@@ -1,6 +1,6 @@
 import pygame
 
-import constants
+import game
 
 
 class SpriteSheet(object):
@@ -24,7 +24,7 @@ class SpriteSheet(object):
         image.blit(self.sprite_sheet, (0, 0), (x, y, width, height))
 
         # Assuming black works as the transparent color
-        image.set_colorkey(constants.BLACK)
+        image.set_colorkey(self.game.BLACK)
 
         # Return the image
         return image

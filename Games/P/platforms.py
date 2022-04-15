@@ -1,6 +1,6 @@
 import pygame
 
-from Games.P.SpriteSheet import SpriteSheet
+from SpriteSheet import SpriteSheet
 
 # These constants define our platform types:
 #   Name of file
