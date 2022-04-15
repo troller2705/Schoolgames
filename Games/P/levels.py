@@ -71,8 +71,8 @@ class Level_01(Level):
         # Call the parent constructor
         Level.__init__(self, player)
 
-        self.background = pygame.image.load("background_01.png").convert()
-        self.background.set_colorkey(self.game.WHITE)
+        self.background = pygame.image.load("./Games/P/Assets/BG/BG1.png").convert()
+        self.background.set_colorkey((255, 255, 255))
         self.level_limit = -2500
 
         # Array with type of platform, and x, y location of the platform.
@@ -120,8 +120,8 @@ class Level_02(Level):
         # Call the parent constructor
         Level.__init__(self, player)
 
-        self.background = pygame.image.load("background_02.png").convert()
-        self.background.set_colorkey(self.game.WHITE)
+        self.background = pygame.image.load("./Games/P/Assets/BG/background.png").convert()
+        self.background.set_colorkey((255, 255, 255))
         self.level_limit = -1000
 
         # Array with type of platform, and x, y location of the platform.

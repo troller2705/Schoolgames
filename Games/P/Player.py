@@ -33,7 +33,7 @@ class Player(pygame.sprite.Sprite):
         # List of sprites we can bump against
         self.level = None
 
-        sprite_sheet = SpriteSheet("p1_walk.png")
+        sprite_sheet = SpriteSheet("./Games/P/Characters/Mario.png")
         # Load all the right facing images into a list
         image = sprite_sheet.get_image(0, 0, 66, 90)
         self.walking_frames_r.append(image)

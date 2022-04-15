@@ -14,23 +14,21 @@ class Platformer:
         self.mid_w, self.mid_h = self.x / 2, self.y / 2
 
         # Create the player
-        player = Player()
+        self.player = Player()
 
         # Create all the levels
-        level_list = []
-        level_list.append(levels.Level_01(player))
-        level_list.append(levels.Level_02(player))
+        self.level_list = [levels.Level_01(self.player), levels.Level_02(self.player)]
 
         # Set the current level
-        current_level_no = 0
-        current_level = level_list[current_level_no]
+        self.current_level_no = 0
+        self.current_level = self.level_list[self.current_level_no]
 
         active_sprite_list = pygame.sprite.Group()
-        player.level = current_level
+        self.player.level = self.current_level
 
-        player.rect.x = 340
-        player.rect.y = self.game.DISPLAY_H - player.rect.height
-        active_sprite_list.add(player)
+        self.player.rect.x = 340
+        self.player.rect.y = self.game.DISPLAY_H - self.player.rect.height
+        active_sprite_list.add(self.player)
 
     def game_loop(self):
         while self.playing:
@@ -40,47 +38,47 @@ class Platformer:
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
-                        player.go_left()
+                        self.player.go_left()
                     if event.key == pygame.K_RIGHT:
-                        player.go_right()
+                        self.player.go_right()
                     if event.key == pygame.K_UP:
-                        player.jump()
+                        self.player.jump()
 
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT and player.change_x < 0:
-                        player.stop()
+                        self.player.stop()
                     if event.key == pygame.K_RIGHT and player.change_x > 0:
-                        player.stop()
+                        self.player.stop()
 
             # Update the player.
             active_sprite_list.update()
 
             # Update items in the level
-            current_level.update()
+            self.current_level.update()
 
             # If the player gets near the right side, shift the world left (-x)
-            if player.rect.right >= 500:
-                diff = player.rect.right - 500
-                player.rect.right = 500
-                current_level.shift_world(-diff)
+            if self.player.rect.right >= 500:
+                diff = self.player.rect.right - 500
+                self.player.rect.right = 500
+                self.current_level.shift_world(-diff)
 
             # If the player gets near the left side, shift the world right (+x)
-            if player.rect.left <= 120:
-                diff = 120 - player.rect.left
-                player.rect.left = 120
-                current_level.shift_world(diff)
+            if self.player.rect.left <= 120:
+                diff = 120 - self.player.rect.left
+                self.player.rect.left = 120
+                self.current_level.shift_world(diff)
 
             # If the player gets to the end of the level, go to the next level
-            current_position = player.rect.x + current_level.world_shift
-            if current_position < current_level.level_limit:
-                player.rect.x = 120
-                if current_level_no < len(level_list) - 1:
-                    current_level_no += 1
-                    current_level = level_list[current_level_no]
-                    player.level = current_level
+            current_position = player.rect.x + self.current_level.world_shift
+            if current_position < self.current_level.level_limit:
+                self.player.rect.x = 120
+                if self.current_level_no < len(self.level_list) - 1:
+                    self.current_level_no += 1
+                    self.current_level = self.level_list[selfcurrent_level_no]
+                    self.player.level = self.current_level
 
             # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
-            current_level.draw(screen)
+            self.current_level.draw(screen)
             active_sprite_list.draw(screen)
 
             pygame.display.update()

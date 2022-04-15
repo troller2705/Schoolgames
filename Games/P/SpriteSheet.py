@@ -9,6 +9,8 @@ class SpriteSheet(object):
     def __init__(self, file_name):
         """ Constructor. Pass in the file name of the sprite sheet. """
 
+        self.game = game
+
         # Load the sprite sheet.
         self.sprite_sheet = pygame.image.load(file_name).convert()
 
@@ -24,7 +26,7 @@ class SpriteSheet(object):
         image.blit(self.sprite_sheet, (0, 0), (x, y, width, height))
 
         # Assuming black works as the transparent color
-        image.set_colorkey(self.game.BLACK)
+        image.set_colorkey((0, 0, 0))
 
         # Return the image
         return image
