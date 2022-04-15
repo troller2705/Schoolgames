@@ -1,4 +1,4 @@
-import SpriteSheet
+from Games.P import SpriteSheet
 import Player
 
 

@@ -3,6 +3,11 @@ import pygame
 from menu import *
 
 
+def sprite_render(sprite, x, y):
+    canvas.blit(sprite, (x, y))
+    display.blit(canvas, (0, 0))
+
+
 class Game:
     def __init__(self):
         pygame.init()
@@ -10,11 +15,11 @@ class Game:
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY, self.ESC_KEY = False, False, False, False, False
         self.DISPLAY_W = pygame.display.get_desktop_sizes()[0][0]
         self.DISPLAY_H = pygame.display.get_desktop_sizes()[0][1]
+        self.canvas = pygame.Surface((DISPLAY_W, DISPLAY_H))
         self.display = pygame.display.set_mode((self.DISPLAY_W, self.DISPLAY_H), pygame.FULLSCREEN)
         pygame_icon = pygame.image.load('UI/icon.png')
         pygame.display.set_icon(pygame_icon)
         pygame.display.set_caption("Troller's Paradise")
-        # self.display = pygame.Surface((self.DISPLAY_W, self.DISPLAY_H), pygame.RESIZABLE)
         self.font_name = 'UI/8-Bit.ttf'
         self.BLACK, self.WHITE, self.GREEN, self.RED = (0, 0, 0), (255, 255, 255), (0, 255, 0), (255, 0, 0)
         self.main_menu = MainMenu(self)
