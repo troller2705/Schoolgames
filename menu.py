@@ -168,7 +168,7 @@ class OptionsMenu(Menu):
 class VolumeMenu(Menu):
     def __init__(self, game):
         Menu.__init__(self, game)
-        self.state = 'Volume Mute'
+        self.state = 'Music Mute'
         self.volx, self.voly = self.mid_w, self.mid_h + 225
         self.controlsx, self.controlsy = self.mid_w, self.mid_h + 250
         self.cursor_rect.midtop = (self.volx + -85, self.voly)
@@ -180,22 +180,44 @@ class VolumeMenu(Menu):
             self.check_input()
             self.game.display.fill((0, 0, 0))
             self.game.draw_text('Volume', 30, self.mid_w, self.mid_h - 200)
-            self.game.draw_text(f'Mute:{self.game.mute}', 20, self.volx, self.voly)
+            self.game.draw_text(f'Music:{self.game.mute1}', 20, self.volx, self.voly)
+            self.game.draw_text(f'Sound:{self.game.mute2}', 20, self.controlsx, self.controlsy)
             self.draw_cross()
             self.draw_cursor()
             self.blit_screen()
 
+    def move_cursor(self):
+        if self.game.DOWN_KEY:
+            if self.state == 'Music Mute':
+                self.cursor_rect.midtop = (self.controlsx + -80, self.controlsy)
+                self.state = 'Sound Mute'
+            elif self.state == 'Sound Mute':
+                self.cursor_rect.midtop = (self.volx + -60, self.voly)
+                self.state = 'Music Mute'
+        elif self.game.UP_KEY:
+            if self.state == 'Music Mute':
+                self.cursor_rect.midtop = (self.controlsx + -80, self.controlsy)
+                self.state = 'Sound Mute'
+            elif self.state == 'Sound Mute':
+                self.cursor_rect.midtop = (self.volx + -60, self.voly)
+                self.state = 'Music Mute'
+
     def check_input(self):
+        self.move_cursor()
         if self.game.BACK_KEY:
             self.game.curr_menu = self.game.options
             self.run_display = False
         if self.game.START_KEY:
-            if self.state == 'Volume Mute' and self.game.mute == 'Off':
-                pygame.mixer.pause()
+            if self.state == 'Music Mute' and self.game.mute1 == 'Off':
+                pygame.mixer.music.unpause()
                 self.game.mute = 'On'
-            elif self.state == 'Volume Mute' and self.game.mute == 'On':
-                pygame.mixer.unpause()
+            elif self.state == 'Music Mute' and self.game.mute1 == 'On':
+                pygame.mixer.music.pause()
                 self.game.mute = 'Off'
+            elif self.state == 'Sound Mute' and self.game.mute2 == 'Off':
+                self.game.mute2 = 'On'
+            elif self.state == 'Sound Mute' and self.game.mute2 == 'On':
+                self.game.mute2 = 'Off'
 
 
 class ControlsMenu(Menu):

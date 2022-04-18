@@ -6,6 +6,7 @@ from menu import *
 class Game:
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
         self.running, self.playing = True, False
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY, self.ESC_KEY = False, False, False, False, False
         self.DISPLAY_W = pygame.display.get_desktop_sizes()[0][0]
@@ -25,7 +26,10 @@ class Game:
         self.volume_menu = VolumeMenu(self)
         self.controls_menu = ControlsMenu(self)
         self.curr_menu = self.main_menu
-        self.mute = 'Off'
+        self.mute1 = 'On'
+        self.mute2 = 'On'
+        pygame.mixer.music.load('Music&Sounds/Menu/8_Bit_Menu.mp3')
+        pygame.mixer.music.play(-1)
         self.clock.tick(60)
 
     def check_events(self):
