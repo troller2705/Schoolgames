@@ -3,6 +3,8 @@ import pygame
 import game
 import platforms
 
+# Maps are 1600px wide x 800px tall
+
 
 class Level:
     """ This is a generic super-class used to define a level.
@@ -28,7 +30,7 @@ class Level:
         self.enemy_list = pygame.sprite.Group()
         self.player = player
 
-    # Update everythign on this level
+    # Update everything on this level
     def update(self):
         """ Update everything in this level."""
         self.platform_list.update()
