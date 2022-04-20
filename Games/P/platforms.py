@@ -9,12 +9,20 @@ from SpriteSheet import SpriteSheet
 #   Width of sprite
 #   Height of sprite
 
-GRASS_LEFT = (576, 720, 70, 70)
-GRASS_RIGHT = (576, 576, 70, 70)
-GRASS_MIDDLE = (504, 576, 70, 70)
-STONE_PLATFORM_LEFT = (432, 720, 70, 40)
-STONE_PLATFORM_MIDDLE = (648, 648, 70, 40)
-STONE_PLATFORM_RIGHT = (792, 648, 70, 40)
+GRASS_LEFT = (0, 0, 16, 16)
+GRASS_RIGHT = (32, 0, 16, 16)
+GRASS_MIDDLE = (16, 0, 16, 16)
+GRASS_LEFT_CENTER = (0, 16, 16, 16)
+GRASS_RIGHT_CENTER = (32, 16, 16, 16)
+GRASS_MIDDLE_CENTER = (16, 16, 16, 16)
+GRASS_LEFT_BOTTOM = (0, 32, 16, 16)
+GRASS_RIGHT_BOTTOM = (32, 32, 16, 16)
+GRASS_MIDDLE_BOTTOM = (16, 32, 16, 16)
+GRASS_INNER_CORNER_LEFT = (48, 0, 16, 16)
+GRASS_INNER_CORNER_RIGHT = (64, 0, 16, 16)
+GRASS_OUTER_CORNER_LEFT = (48, 32, 16, 16)
+GRASS_OUTER_CORNER_RIGHT = (64, 32, 16, 16)
+GRASS_SINGLE_BLOCK = (80, 32, 16, 16)
 
 
 class Platform(pygame.sprite.Sprite):
@@ -76,13 +84,13 @@ class MovingPlatform(Platform):
             if self.change_x < 0:
                 self.player.rect.right = self.rect.left
             else:
-                # Otherwise if we are moving left, do the opposite.
+                # Otherwise, if we are moving left, do the opposite.
                 self.player.rect.left = self.rect.right
 
         # Move up/down
         self.rect.y += self.change_y
 
-        # Check and see if we the player
+        # Check and see if we hit the player
         hit = pygame.sprite.collide_rect(self, self.player)
         if hit:
             # We did hit the player. Shove the player around and

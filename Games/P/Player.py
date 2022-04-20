@@ -103,7 +103,7 @@ class Player(pygame.sprite.Sprite):
             if self.change_x > 0:
                 self.rect.right = block.rect.left
             elif self.change_x < 0:
-                # Otherwise if we are moving left, do the opposite.
+                # Otherwise, if we are moving left, do the opposite.
                 self.rect.left = block.rect.right
 
         # Move up/down
