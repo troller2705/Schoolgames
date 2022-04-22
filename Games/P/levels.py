@@ -1,6 +1,6 @@
 import pygame
 
-import game
+import constants
 import platforms
 
 # Maps are 1600px wide x 800px tall
@@ -19,15 +19,17 @@ class Level:
         # lists as needed for your game.
         self.platform_list = None
         self.enemy_list = None
+        self.loot_list = None
 
         # Background image
         self.background = None
 
         # How far this world has been scrolled left/right
         self.world_shift = 0
-        self.level_limit = -1000
+        self.level_limit = -500
         self.platform_list = pygame.sprite.Group()
         self.enemy_list = pygame.sprite.Group()
+        self.loot_list = pygame.sprite.Group()
         self.player = player
 
     # Update everything on this level
@@ -35,6 +37,7 @@ class Level:
         """ Update everything in this level."""
         self.platform_list.update()
         self.enemy_list.update()
+        self.loot_list.update()
 
     def draw(self, screen):
         """ Draw everything on this level. """
@@ -42,12 +45,13 @@ class Level:
         # Draw the background
         # We don't shift the background as much as the sprites are shifted
         # to give a feeling of depth.
-        screen.fill(self.game.BLUE)
+        screen.fill(constants.BLUE)
         screen.blit(self.background, (self.world_shift // 3, 0))
 
         # Draw all the sprite lists that we have
         self.platform_list.draw(screen)
         self.enemy_list.draw(screen)
+        self.loot_list.draw(screen)
 
     def shift_world(self, shift_x):
         """ When the user moves left/right, and we need to scroll everything: """
@@ -62,6 +66,17 @@ class Level:
         for enemy in self.enemy_list:
             enemy.rect.x += shift_x
 
+    def loot(self, lvl):
+        if lvl == 1:
+            self.loot_list = pygame.sprite.Group()
+            loot = Platform(tx * 9, ty * 5, tx, ty, "Assets/Decor/Items.png")
+            self.loot_list.add(loot)
+
+        if lvl == 2:
+            print(lvl)
+
+        return self.loot_list
+
 
 # Create platforms for the level
 class Level_01(Level):
@@ -73,43 +88,42 @@ class Level_01(Level):
         # Call the parent constructor
         Level.__init__(self, player)
 
-        self.background = pygame.image.load("./Games/P/Assets/BG/BG1.png").convert()
+        self.background = pygame.image.load("Assets/BG/BG1.png").convert()
         self.background.set_colorkey((255, 255, 255))
-        self.level_limit = -2500
 
         # Array with type of platform, and x, y location of the platform.
-        level = [[platforms.GRASS_LEFT, 500, 500],
-                 [platforms.GRASS_MIDDLE, 570, 500],
-                 [platforms.GRASS_RIGHT, 640, 500],
-                 [platforms.GRASS_LEFT, 800, 400],
-                 [platforms.GRASS_MIDDLE, 870, 400],
-                 [platforms.GRASS_RIGHT, 940, 400],
+        level = [[platforms.GRASS_LEFT, 500, 600],
+                 [platforms.GRASS_MIDDLE, 530, 600],
+                 [platforms.GRASS_MIDDLE, 560, 600],
+                 [platforms.GRASS_MIDDLE, 590, 600],
+                 [platforms.GRASS_MIDDLE, 620, 600],
+                 [platforms.GRASS_RIGHT, 640, 600],
+                 [platforms.GRASS_LEFT, 800, 450],
+                 [platforms.GRASS_MIDDLE, 830, 450],
+                 [platforms.GRASS_MIDDLE, 860, 450],
+                 [platforms.GRASS_MIDDLE, 890, 450],
+                 [platforms.GRASS_MIDDLE, 920, 450],
+                 [platforms.GRASS_RIGHT, 940, 450],
                  [platforms.GRASS_LEFT, 1000, 500],
-                 [platforms.GRASS_MIDDLE, 1070, 500],
+                 [platforms.GRASS_MIDDLE, 1030, 500],
+                 [platforms.GRASS_MIDDLE, 1060, 500],
+                 [platforms.GRASS_MIDDLE, 1090, 500],
+                 [platforms.GRASS_MIDDLE, 1120, 500],
                  [platforms.GRASS_RIGHT, 1140, 500],
-                 [platforms.STONE_PLATFORM_LEFT, 1120, 280],
-                 [platforms.STONE_PLATFORM_MIDDLE, 1190, 280],
-                 [platforms.STONE_PLATFORM_RIGHT, 1260, 280],
-                 ]
+                 [platforms.GRASS_LEFT, 1100, 350],
+                 [platforms.GRASS_MIDDLE, 1130, 350],
+                 [platforms.GRASS_MIDDLE, 1160, 350],
+                 [platforms.GRASS_MIDDLE, 1190, 350],
+                 [platforms.GRASS_MIDDLE, 1220, 350],
+                 [platforms.GRASS_RIGHT, 1240, 350]]
 
         # Go through the array above and add platforms
         for platform in level:
-            block = platforms.Platform(platform[0])
-            block.rect.x = platform[1]
-            block.rect.y = platform[2]
-            block.player = self.player
-            self.platform_list.add(block)
-
-        # Add a custom moving platform
-        block = platforms.MovingPlatform(platforms.STONE_PLATFORM_MIDDLE)
-        block.rect.x = 1350
-        block.rect.y = 280
-        block.boundary_left = 1350
-        block.boundary_right = 1600
-        block.change_x = 1
-        block.player = self.player
-        block.level = self
-        self.platform_list.add(block)
+            self.block = platforms.Platform(platform[0])
+            self.block.rect.x = platform[1]
+            self.block.rect.y = platform[2]
+            self.block.player = self.player
+            self.platform_list.add(self.block)
 
 
 # Create platforms for the level
@@ -122,24 +136,34 @@ class Level_02(Level):
         # Call the parent constructor
         Level.__init__(self, player)
 
-        self.background = pygame.image.load("./Games/P/Assets/BG/background.png").convert()
+        self.background = pygame.image.load("Assets/BG/background.png").convert()
         self.background.set_colorkey((255, 255, 255))
-        self.level_limit = -1000
 
         # Array with type of platform, and x, y location of the platform.
-        level = [[platforms.STONE_PLATFORM_LEFT, 500, 550],
-                 [platforms.STONE_PLATFORM_MIDDLE, 570, 550],
-                 [platforms.STONE_PLATFORM_RIGHT, 640, 550],
-                 [platforms.GRASS_LEFT, 800, 400],
-                 [platforms.GRASS_MIDDLE, 870, 400],
-                 [platforms.GRASS_RIGHT, 940, 400],
+        level = [[platforms.GRASS_LEFT, 500, 600],
+                 [platforms.GRASS_MIDDLE, 530, 600],
+                 [platforms.GRASS_MIDDLE, 560, 600],
+                 [platforms.GRASS_MIDDLE, 590, 600],
+                 [platforms.GRASS_MIDDLE, 620, 600],
+                 [platforms.GRASS_RIGHT, 640, 600],
+                 [platforms.GRASS_LEFT, 800, 450],
+                 [platforms.GRASS_MIDDLE, 830, 450],
+                 [platforms.GRASS_MIDDLE, 860, 450],
+                 [platforms.GRASS_MIDDLE, 890, 450],
+                 [platforms.GRASS_MIDDLE, 920, 450],
+                 [platforms.GRASS_RIGHT, 940, 450],
                  [platforms.GRASS_LEFT, 1000, 500],
-                 [platforms.GRASS_MIDDLE, 1070, 500],
+                 [platforms.GRASS_MIDDLE, 1030, 500],
+                 [platforms.GRASS_MIDDLE, 1060, 500],
+                 [platforms.GRASS_MIDDLE, 1090, 500],
+                 [platforms.GRASS_MIDDLE, 1120, 500],
                  [platforms.GRASS_RIGHT, 1140, 500],
-                 [platforms.STONE_PLATFORM_LEFT, 1120, 280],
-                 [platforms.STONE_PLATFORM_MIDDLE, 1190, 280],
-                 [platforms.STONE_PLATFORM_RIGHT, 1260, 280],
-                 ]
+                 [platforms.GRASS_LEFT, 1100, 350],
+                 [platforms.GRASS_MIDDLE, 1130, 350],
+                 [platforms.GRASS_MIDDLE, 1160, 350],
+                 [platforms.GRASS_MIDDLE, 1190, 350],
+                 [platforms.GRASS_MIDDLE, 1220, 350],
+                 [platforms.GRASS_RIGHT, 1240, 350]]
 
         # Go through the array above and add platforms
         for platform in level:
@@ -148,14 +172,3 @@ class Level_02(Level):
             block.rect.y = platform[2]
             block.player = self.player
             self.platform_list.add(block)
-
-        # Add a custom moving platform
-        block = platforms.MovingPlatform(platforms.STONE_PLATFORM_MIDDLE)
-        block.rect.x = 1500
-        block.rect.y = 300
-        block.boundary_top = 100
-        block.boundary_bottom = 550
-        block.change_y = -1
-        block.player = self.player
-        block.level = self
-        self.platform_list.add(block)

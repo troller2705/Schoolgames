@@ -1,9 +1,7 @@
 import pygame
 
-import game
-
 from platforms import MovingPlatform
-from SpriteSheet import SpriteSheet
+from spritesheet_functions import SpriteSheet
 
 
 class Player(pygame.sprite.Sprite):
@@ -18,6 +16,12 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
 
         # -- Attributes
+        # Set effects of player
+        self.big = False
+        self.fire = False
+        self.invincible = False
+        self.invincible_timer = 5
+
         # Set speed vector of player
         self.change_x = 0
         self.change_y = 0
@@ -30,48 +34,57 @@ class Player(pygame.sprite.Sprite):
         # What direction is the player facing?
         self.direction = "R"
 
+        self.Screen_H = pygame.display.get_surface().get_height()
+
         # List of sprites we can bump against
         self.level = None
 
-        sprite_sheet = SpriteSheet("./Games/P/Characters/Mario.png")
+        sprite_sheet = SpriteSheet("Characters/Mario.png")
         # Load all the right facing images into a list
-        image = sprite_sheet.get_image(0, 0, 66, 90)
+        img = sprite_sheet.get_image(0, 0, 32, 32)
+        image = pygame.transform.scale(img, (64, 64))
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(66, 0, 66, 90)
+        img = sprite_sheet.get_image(32, 0, 32, 32)
+        image = pygame.transform.scale(img, (64, 64))
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(132, 0, 67, 90)
+        img = sprite_sheet.get_image(64, 0, 32, 32)
+        image = pygame.transform.scale(img, (64, 64))
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(0, 93, 66, 90)
+        img = sprite_sheet.get_image(96, 0, 32, 32)
+        image = pygame.transform.scale(img, (64, 64))
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(66, 93, 66, 90)
+        img = sprite_sheet.get_image(128, 0, 32, 32)
+        image = pygame.transform.scale(img, (64, 64))
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(132, 93, 72, 90)
-        self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(0, 186, 70, 90)
+        img = sprite_sheet.get_image(160, 0, 32, 32)
+        image = pygame.transform.scale(img, (64, 64))
         self.walking_frames_r.append(image)
 
         # Load all the right facing images, then flip them
         # to face left.
-        image = sprite_sheet.get_image(0, 0, 66, 90)
-        image = pygame.transform.flip(image, True, False)
+        img = sprite_sheet.get_image(0, 0, 32, 32)
+        img = pygame.transform.flip(img, True, False)
+        image = pygame.transform.scale(img, (64, 64))
         self.walking_frames_l.append(image)
-        image = sprite_sheet.get_image(66, 0, 66, 90)
-        image = pygame.transform.flip(image, True, False)
+        img = sprite_sheet.get_image(32, 0, 32, 32)
+        img = pygame.transform.flip(img, True, False)
+        image = pygame.transform.scale(img, (64, 64))
         self.walking_frames_l.append(image)
-        image = sprite_sheet.get_image(132, 0, 67, 90)
-        image = pygame.transform.flip(image, True, False)
+        img = sprite_sheet.get_image(64, 0, 32, 32)
+        img = pygame.transform.flip(img, True, False)
+        image = pygame.transform.scale(img, (64, 64))
         self.walking_frames_l.append(image)
-        image = sprite_sheet.get_image(0, 93, 66, 90)
-        image = pygame.transform.flip(image, True, False)
+        img = sprite_sheet.get_image(96, 0, 32, 32)
+        img = pygame.transform.flip(img, True, False)
+        image = pygame.transform.scale(img, (64, 64))
         self.walking_frames_l.append(image)
-        image = sprite_sheet.get_image(66, 93, 66, 90)
-        image = pygame.transform.flip(image, True, False)
+        img = sprite_sheet.get_image(128, 0, 32, 32)
+        img = pygame.transform.flip(img, True, False)
+        image = pygame.transform.scale(img, (64, 64))
         self.walking_frames_l.append(image)
-        image = sprite_sheet.get_image(132, 93, 72, 90)
-        image = pygame.transform.flip(image, True, False)
-        self.walking_frames_l.append(image)
-        image = sprite_sheet.get_image(0, 186, 70, 90)
-        image = pygame.transform.flip(image, True, False)
+        img = sprite_sheet.get_image(160, 0, 32, 32)
+        img = pygame.transform.flip(img, True, False)
+        image = pygame.transform.scale(img, (64, 64))
         self.walking_frames_l.append(image)
 
         # Set the image the player starts with
@@ -133,9 +146,9 @@ class Player(pygame.sprite.Sprite):
             self.change_y += .35
 
         # See if we are on the ground.
-        if self.rect.y >= self.game.DISPLAY_H - self.rect.height and self.change_y >= 0:
+        if self.rect.y >= self.Screen_H - self.rect.height and self.change_y >= 0:
             self.change_y = 0
-            self.rect.y = self.game.DISPLAY_H - self.rect.height
+            self.rect.y = self.Screen_H - self.rect.height
 
     def jump(self):
         """ Called when user hits 'jump' button. """
@@ -148,7 +161,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.y -= 2
 
         # If it is ok to jump, set our speed upwards
-        if len(platform_hit_list) > 0 or self.rect.bottom >= self.game.DISPLAY_H:
+        if len(platform_hit_list) > 0 or self.rect.bottom >= self.Screen_H:
             self.change_y = -10
 
     # Player-controlled movement:

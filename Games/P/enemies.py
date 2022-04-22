@@ -1,5 +1,5 @@
-from Games.P import SpriteSheet
-import Player
+from spritesheet_functions import SpriteSheet
+import player
 
 
 class Enemies:

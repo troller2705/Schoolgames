@@ -1,6 +1,6 @@
 import pygame
 
-from SpriteSheet import SpriteSheet
+from spritesheet_functions import SpriteSheet
 
 # These constants define our platform types:
 #   Name of file
@@ -9,6 +9,7 @@ from SpriteSheet import SpriteSheet
 #   Width of sprite
 #   Height of sprite
 
+# Platforms
 GRASS_LEFT = (0, 0, 16, 16)
 GRASS_RIGHT = (32, 0, 16, 16)
 GRASS_MIDDLE = (16, 0, 16, 16)
@@ -24,6 +25,20 @@ GRASS_OUTER_CORNER_LEFT = (48, 32, 16, 16)
 GRASS_OUTER_CORNER_RIGHT = (64, 32, 16, 16)
 GRASS_SINGLE_BLOCK = (80, 32, 16, 16)
 
+# Items
+Mushroom_R = (0, 0, 16, 16)
+Mushroom_G = (16, 0, 16, 16)
+Fire_Flower = (32, 0, 16, 16)
+Power_Star = (48, 0, 16, 16)
+Coin_1 = (0, 16, 16, 16)
+Coin_2 = (16, 16, 16, 16)
+Coin_3 = (32, 16, 16, 16)
+Coin_4 = (48, 16, 16, 16)
+Coin_5 = (0, 32, 16, 16)
+Coin_6 = (16, 32, 16, 16)
+Coin_7 = (32, 32, 16, 16)
+Coin_8 = (48, 32, 16, 16)
+
 
 class Platform(pygame.sprite.Sprite):
     """ Platform the user can jump on """
@@ -34,14 +49,15 @@ class Platform(pygame.sprite.Sprite):
             code. """
         super().__init__()
 
-        sprite_sheet = SpriteSheet("./Games/P/Assets/Platforms/Tileset.png")
-        # Grab the image for this platform
-        self.image = sprite_sheet.get_image(sprite_sheet_data[0],
-                                            sprite_sheet_data[1],
-                                            sprite_sheet_data[2],
-                                            sprite_sheet_data[3])
+        sprite_sheet = SpriteSheet("Assets/Platforms/Tileset.png")
 
-        self.rect = self.image.get_rect()
+        img = sprite_sheet.get_image(sprite_sheet_data[0],
+                                     sprite_sheet_data[1],
+                                     sprite_sheet_data[2],
+                                     sprite_sheet_data[3])
+        self.image = pygame.transform.scale(img, (32, 32))
+
+        self.rect = img.get_rect()
 
 
 class MovingPlatform(Platform):

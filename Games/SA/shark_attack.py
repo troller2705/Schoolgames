@@ -1,5 +1,5 @@
 import pygame
-# 3 Lives
+# 5 Lives
 
 
 class Player:
