@@ -4,8 +4,8 @@ from spritesheet_functions import SpriteSheet
 #   Name of file
 #   X location of sprite
 #   Y location of sprite
-
-sprite_size = 16, 16
+#   Width of sprite
+#   Height of sprite
 
 tl = (0, 0, 16, 16)
 tm = (16, 0, 16, 16)
