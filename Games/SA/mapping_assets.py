@@ -7,15 +7,15 @@ from spritesheet_functions import SpriteSheet
 
 sprite_size = 16, 16
 
-top_left = (0, 0, 16, 16)
-top_middle = (16, 0, 16, 16)
-top_right = (32, 0, 16, 16)
-middle_left = (0, 16, 16, 16)
-middle_middle = (16, 16, 16, 16)
-middle_right = (32, 16, 16, 16)
-bottom_left = (0, 32, 16, 16)
-bottom_middle = (16, 32, 16, 16)
-bottom_right = (32, 32, 16, 16)
+tl = (0, 0, 16, 16)
+tm = (16, 0, 16, 16)
+tr = (32, 0, 16, 16)
+ml = (0, 16, 16, 16)
+mm = (16, 16, 16, 16)
+mr = (32, 16, 16, 16)
+bl = (0, 32, 16, 16)
+bm = (16, 32, 16, 16)
+br = (32, 32, 16, 16)
 
 human
 
