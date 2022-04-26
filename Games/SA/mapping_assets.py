@@ -17,7 +17,7 @@ bl = (0, 32, 16, 16)
 bm = (16, 32, 16, 16)
 br = (32, 32, 16, 16)
 
-human
+h = pygame.image.load("./Characters/Swimmer.png")
 
 
 class Assets(pygame.sprite.Sprite):
