@@ -19,9 +19,6 @@ class Level:
         self.enemy_list = None
         self.loot_list = None
 
-        # Background image
-        self.background = None
-
         # How far this world has been scrolled left/right
         self.world_shift = 0
         self.level_limit = -500
@@ -74,3 +71,14 @@ class Level:
             print(lvl)
 
         return self.loot_list
+
+
+class Level_01(Level):
+    """ Definition for level 1. """
+    # 0 = empty space
+    # 1 = wall
+    # 2 = player
+    # 3 = enemy
+    # 4 = human
+
+
