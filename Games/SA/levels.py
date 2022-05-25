@@ -9,12 +9,6 @@ class Level:
         self.block_list = None
         self.enemy_list = None
         self.loot_list = None
-        self.x = None
-        self.b = None
-        self.p = None
-        self.e = None
-        self.h = None
-        self.d = None
 
         # Background image
         self.background = pygame.image.load("./Assets/Water-BG.jpeg")
@@ -49,45 +43,55 @@ class Level_01(Level):
     # d = door
     def __init__(self, player):
         """ Create level 1. """
-
+        x, y = 0, 0
         # Call the parent constructor
         Level.__init__(self, player)
-        x = self.x
-        b = self.b
-        p = self.p
-        e = self.e
-        h = self.h
-        d = self.d
 
-        lvl = [[b, b, b, b, b, b, b, x, b, b, b, b, b, b, b],
-               [b, h, x, x, x, x, b, x, b, x, b, x, x, h, b],
-               [b, x, x, b, x, b, b, x, b, x, x, x, x, x, b],
-               [b, x, x, b, x, x, x, x, x, x, x, x, x, b, b],
-               [b, b, x, b, b, x, b, b, b, x, x, b, b, b, b],
-               [b, x, x, x, x, x, x, x, x, x, x, x, x, x, b],
-               [b, b, b, b, b, x, b, d, b, x, b, x, b, b, b],
-               [x, x, x, x, b, x, b, e, b, x, b, x, x, x, x],
-               [b, b, b, x, b, x, b, b, b, x, b, b, b, b, b],
-               [b, x, x, x, x, x, x, p, x, x, x, x, x, x, b],
-               [b, b, b, b, x, x, b, b, b, x, x, b, x, x, b],
-               [b, x, x, b, x, x, x, x, x, x, x, b, b, x, b],
-               [b, x, x, b, x, x, b, x, b, x, x, x, x, x, b],
-               [b, h, x, x, x, x, b, x, b, x, x, b, x, h, b],
-               [b, b, b, b, b, b, b, x, b, b, b, b, b, b, b]]
+        lvl = [["b", "b", "b", "b", "b", "b", "b", "x", "b", "b", "b", "b", "b", "b", "b"],
+               ["b", "h", "x", "x", "x", "x", "b", "x", "b", "x", "b", "x", "x", "h", "b"],
+               ["b", "x", "x", "b", "x", "b", "b", "x", "b", "x", "x", "x", "x", "x", "b"],
+               ["b", "x", "x", "b", "x", "x", "x", "x", "x", "x", "x", "x", "x", "b", "b"],
+               ["b", "b", "x", "b", "b", "x", "b", "b", "b", "x", "x", "b", "b", "b", "b"],
+               ["b", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "b"],
+               ["b", "b", "b", "b", "b", "x", "b", "d", "b", "x", "b", "x", "b", "b", "b"],
+               ["x", "x", "x", "x", "b", "x", "b", "e", "b", "x", "b", "x", "x", "x", "x"],
+               ["b", "b", "b", "x", "b", "x", "b", "b", "b", "x", "b", "b", "b", "b", "b"],
+               ["b", "x", "x", "x", "x", "x", "x", "p", "x", "x", "x", "x", "x", "x", "b"],
+               ["b", "b", "b", "b", "x", "x", "b", "b", "b", "x", "x", "b", "x", "x", "b"],
+               ["b", "x", "x", "b", "x", "x", "x", "x", "x", "x", "x", "b", "b", "x", "b"],
+               ["b", "x", "x", "b", "x", "x", "b", "x", "b", "x", "x", "x", "x", "x", "b"],
+               ["b", "h", "x", "x", "x", "x", "b", "x", "b", "x", "x", "b", "x", "h", "b"],
+               ["b", "b", "b", "b", "b", "b", "b", "x", "b", "b", "b", "b", "b", "b", "b"]]
 
         for row in lvl:
+            x += 1
             for col in row:
-                if col == b:
+                y += 1
+                if y > 15:
+                    y = 1
+                if col == "b":
                     self.brick = mapping_assets.b
-                if col == d:
-                    pass
-                if col == p:
-                    pass
-                if col == h:
+                    self.brick.rect.x = x
+                    self.brick.rect.y = y
+                    self.block_list.add(self.brick)
+                if col == "d":
+                    self.door = mapping_assets.b
+                    self.door.rect.x = x
+                    self.door.rect.y = y
+                    self.block_list.add(self.door)
+                if col == "p":
+                    self.player_pos = self.player
+                    self.player_pos.rect.x = x
+                    self.player_pos.rect.y = y
+                    self.block_list.add(self.player_pos)
+                if col == "h":
                     self.human = mapping_assets.h
-                if col == e:
+                    self.human.rect.x = x
+                    self.human.rect.y = y
+                    self.loot_list.add(self.human)
+                if col == "e":
                     pass
-                if col == x:
+                if col == "x":
                     pass
 
             # self.block = platforms.Platform(platform[0])
