@@ -1,3 +1,5 @@
+import time
+
 import pygame
 import sys
 
@@ -276,11 +278,15 @@ class GameMenu(Menu):
         self.g3x, self.g3y = self.mid_w, self.mid_h + 275
         self.cursor_rect.midtop = (self.g1x + -135, self.g1y)
 
+        self.size = [300, 200]
+        self.rect_x = self.mid_w - (self.size[0] / 2)
+        self.rect_y = self.mid_h - (self.size[1] / 2)
+        self.rect = [self.rect_x, self.rect_y, self.size[0], self.size[1]]
+
     def display_menu(self):
         self.run_display = True
         while self.run_display:
             self.game.check_events()
-            self.check_input()
             self.game.display.fill((0, 0, 0))
             self.game.draw_text('Game Selections', 30, self.mid_w, self.mid_h - 250)
             self.game.draw_text('Ancient Quest', 20, self.g1x, self.g1y)
@@ -289,6 +295,7 @@ class GameMenu(Menu):
             self.draw_cross()
             self.draw_cursor()
             self.draw_characters()
+            self.check_input()
             self.blit_screen()
 
     def move_cursor(self):
@@ -320,14 +327,11 @@ class GameMenu(Menu):
             self.run_display = False
         if self.game.START_KEY:
             if self.state == 'Ancient Quest':
-                self.playing = True
-                ancient_quest.AncientQuest.game_loop(self)
+                self.draw_wip()
             elif self.state == 'Platformer':
-                self.playing = True
-                platformer.Platformer.game_loop(self)
+                self.draw_wip()
             elif self.state == 'Shark Attack':
-                self.playing = True
-                shark_attack.SharkAttack.game_loop(self)
+                shark_attack
 
     def draw_characters(self):
         sharkS = pygame.image.load('Games/SA/Characters/Shark.R.png')
@@ -339,6 +343,11 @@ class GameMenu(Menu):
             self.game.display.blit(sharkS, (self.mid_w - 85, self.mid_h - 230))
         elif self.state == 'Platformer':
             self.game.display.blit(platformerS, (self.mid_w - 85, self.mid_h - 230))
+
+    def draw_wip(self):
+        pygame.draw.rect(self.game.display, self.game.RED, self.rect)
+        self.game.draw_text('W.I.P', 30, self.mid_w, self.mid_h)
+        time.sleep(5)
 
 
 pygame.display.quit()

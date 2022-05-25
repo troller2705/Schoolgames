@@ -7,14 +7,14 @@ class Game:
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
-        self.running, self.playing = True, False
+        self.running = True
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY, self.ESC_KEY = False, False, False, False, False
         self.DISPLAY_W = pygame.display.get_desktop_sizes()[0][0]
         self.DISPLAY_H = pygame.display.get_desktop_sizes()[0][1]
         self.canvas = pygame.Surface((self.DISPLAY_W, self.DISPLAY_H))
         self.display = pygame.display.set_mode((self.DISPLAY_W, self.DISPLAY_H), pygame.FULLSCREEN)
-        pygame_icon = pygame.image.load('UI/icon.png')
-        pygame.display.set_icon(pygame_icon)
+        Menu_icon = pygame.image.load('UI/icon.png')
+        pygame.display.set_icon(Menu_icon)
         pygame.display.set_caption("Troller's Paradise")
         self.clock = pygame.time.Clock()
         self.font_name = 'UI/8-Bit.ttf'
@@ -35,7 +35,7 @@ class Game:
     def check_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.running, self.playing = False, False
+                self.running = False
                 self.curr_menu.run_display = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
