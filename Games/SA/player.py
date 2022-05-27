@@ -98,3 +98,8 @@ class Player:
         self.player = pygame.image.load(self.img)
         player = pygame.transform.scale(self.player, self.size)
         display.blit(player, [self.x, self.y])
+
+    def death(self):
+        self.lives -= 1
+        self.x = 50
+        self.y = 50

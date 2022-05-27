@@ -30,4 +30,4 @@ class Enemies:
         screen.blit(sprite, (self.x, self.y))
 
     def attack(self):
-        self.Player.HP -= self.Damage
+        self.Player.death()
