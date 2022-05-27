@@ -13,7 +13,9 @@ class Player:
         super().__init__()
 
         # -- Attributes
+        self.lives = 5
         # Set effects of player
+        self.player = None
         self.invincible = False
         self.invincible_timer = 5
 
@@ -28,10 +30,6 @@ class Player:
         self.direction = "R"
 
         self.img = "./Characters/Shark.R.png"
-
-        self.player = pygame.image.load(self.img)
-
-        self.rect = self.player.get_rect()
 
         # List of sprites we can bump against
         self.level = None
@@ -97,5 +95,6 @@ class Player:
         self.direction = "D"
 
     def draw_player(self, display):
+        self.player = pygame.image.load(self.img)
         player = pygame.transform.scale(self.player, self.size)
         display.blit(player, [self.x, self.y])

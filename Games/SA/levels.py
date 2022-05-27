@@ -5,7 +5,7 @@ import mapping_assets
 
 
 class Level:
-    def __init__(self, player):
+    def __init__(self, player, enemy):
         self.block_list = None
         self.enemy_list = None
         self.loot_list = None
@@ -17,20 +17,21 @@ class Level:
         self.enemy_list = pygame.sprite.Group()
         self.loot_list = pygame.sprite.Group()
         self.player = player
+        self.enemy = enemy
 
         # Update everything on this level
-        def update(self):
-            """ Update everything in this level."""
-            self.block_list.update()
-            self.enemy_list.update()
-            self.loot_list.update()
+    def update(self):
+        """ Update everything in this level."""
+        self.block_list.update()
+        self.enemy_list.update()
+        self.loot_list.update()
 
-        def draw(self, screen):
-            """ Draw everything on this level. """
-            # Draw all the sprite lists that we have
-            self.block_list.draw(screen)
-            self.enemy_list.draw(screen)
-            self.loot_list.draw(screen)
+    def draw(self, screen):
+        """ Draw everything on this level. """
+        # Draw all the sprite lists that we have
+        self.block_list.draw(screen)
+        self.enemy_list.draw(screen)
+        self.loot_list.draw(screen)
 
 
 class Level_01(Level):
@@ -41,11 +42,11 @@ class Level_01(Level):
     # e = enemy
     # h = human
     # d = door
-    def __init__(self, player):
+    def __init__(self, player, enemy):
         """ Create level 1. """
         x, y = 0, 0
         # Call the parent constructor
-        Level.__init__(self, player)
+        Level.__init__(self, player, enemy)
 
         lvl = [["b", "b", "b", "b", "b", "b", "b", "x", "b", "b", "b", "b", "b", "b", "b"],
                ["b", "h", "x", "x", "x", "x", "b", "x", "b", "x", "b", "x", "x", "h", "b"],
@@ -90,13 +91,13 @@ class Level_01(Level):
                     self.human.rect.y = y
                     self.loot_list.add(self.human)
                 if col == "e":
-                    pass
-                if col == "x":
-                    pass
+                    self.enemy = self.enemy
+                    self.enemy.rect.x = x
+                    self.enemy.rect.y = y
+                    self.enemy_list.add(self.enemy)
 
             # self.block = platforms.Platform(platform[0])
             # self.block.rect.x = platform[1]
             # self.block.rect.y = platform[2]
             # self.block.player = self.player
             # self.platform_list.add(self.block)
-
